@@ -10,14 +10,14 @@
 LIMIT = 10000
 
 def main():
-    print("Enter matrix row by row.")
-    print(f"Enter weights 0-{LIMIT - 1}")
-    print("Values should be separated by single whitespaces!\n")
-
     mat = []
     solMat = []
     start = 0
     end = 0
+
+    print("Enter matrix row by row.")
+    print(f"Enter weights 0-{LIMIT - 1}")
+    print("Values should be separated by single whitespaces!\n")
 
     #Read matrix
     firstLineArr = list(map(int,input().split()))
