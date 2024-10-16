@@ -1,5 +1,9 @@
-import networkx as nx
-import matplotlib.pyplot as plt
+LIMIT = 10000
+SHOW_GRAPHICS = True
+
+if SHOW_GRAPHICS:
+    import networkx as nx
+    import matplotlib.pyplot as plt
 
 # TEST CASE:
 # 0 5 3 7 0 0 0
@@ -9,8 +13,6 @@ import matplotlib.pyplot as plt
 # 0 12 0 4 0 3 3
 # 0 0 6 6 3 0 4
 # 0 0 0 0 3 4 0
-
-LIMIT = 10000
 
 def main():
     mat = []
@@ -76,7 +78,9 @@ def main():
     print("=====================================")
 
     printPath(solMat, start, end)
-    showGraph(mat)
+
+    if SHOW_GRAPHICS:
+        showGraph(mat)
 
 def verifyMat(mat):
     matDim = len(mat)
