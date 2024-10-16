@@ -1,3 +1,6 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
 # TEST CASE:
 # 0 5 3 7 0 0 0
 # 5 0 1 6 12 0 0
@@ -65,7 +68,7 @@ def main():
 
         solMat[minNode][0] = 1
         print(f"\nSTEP {i+1}:")
-        printSolMat(solMat)
+        printSolMat(solMat, minNode)
 
     print("\nFINAL:")
     printSolMat(solMat)
@@ -73,6 +76,7 @@ def main():
     print("=====================================")
 
     printPath(solMat, start, end)
+    showGraph(mat)
 
 def verifyMat(mat):
     matDim = len(mat)
@@ -129,7 +133,7 @@ def initSolMat(len, start):
 
     return solMat
 
-def printSolMat(solMat):
+def printSolMat(solMat, currNode=-1):
     le = len(solMat)
 
     print("Node\tV\tD\tP")
@@ -142,6 +146,9 @@ def printSolMat(solMat):
             if j == 2 and val != -1:
                 val = f"v{val+1}"
             print(f"{val}\t", end="")
+
+        if i == currNode:
+            print(" <--", end="")
         print()
 
 def getMinNode(solMat):
@@ -154,6 +161,7 @@ def getMinNode(solMat):
     return curInd, curMin
 
 def printPath(solMat, start, currNode):
+    pathLen = solMat[currNode][1]
     path = []
 
     while solMat[currNode][2] != -1:
@@ -167,6 +175,24 @@ def printPath(solMat, start, currNode):
         return
 
     print("\nShortest path: " + "=>".join(f"v{str(e+1)}" for e in path))
+    print(f"Length: {pathLen}")
+
+def showGraph(mat):
+    G = nx.Graph()
+
+    #Convert matrix to edges with weights
+    for i in range(len(mat)):
+        for j in range(i+1, len(mat)):
+            w = mat[i][j]
+            if w != 0 and i != j:
+                G.add_edge(str(i+1), str(j+1), weight=w)
+
+    pos = nx.spring_layout(G)
+    nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=500, font_size=10)
+    edge_labels = nx.get_edge_attributes(G, 'weight')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+    plt.get_current_fig_manager().set_window_title("Graph Visualization with weights | Ruse University")
+    plt.show()
 
 if __name__ == "__main__":
     main()
