@@ -105,7 +105,8 @@ def verifyMat(mat):
 def verifyStartEndNodes(startEndArr, matDim):
     if len(startEndArr) != 2:
         return False
-    if startEndArr[0] < 1 or startEndArr[1] > matDim:
+    if startEndArr[0] < 1 or startEndArr[0] > matDim or \
+       startEndArr[1] < 1 or startEndArr[1] > matDim:
         return False
     return True
 
@@ -195,7 +196,8 @@ def showGraph(mat):
     nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=500, font_size=10)
     edge_labels = nx.get_edge_attributes(G, 'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-    plt.get_current_fig_manager().set_window_title("Graph Visualization with weights | Ruse University")
+    plt.get_current_fig_manager()\
+       .set_window_title("Graph Visualization with weights | Ruse University")
     plt.show()
 
 if __name__ == "__main__":
